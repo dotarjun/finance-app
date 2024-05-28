@@ -1,13 +1,13 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -19,6 +19,33 @@ const config = {
     },
     extend: {
       colors: {
+        brand: {
+          "50": "#fff4ed",
+          "100": "#ffe7d4",
+          "200": "#ffcba8",
+          "300": "#ffa671",
+          "400": "#ff8047",
+          "500": "#fe5111",
+          "600": "#ef3607",
+          "700": "#c62408",
+          "800": "#9d1f0f",
+          "900": "#7e1d10",
+          "950": "#440a06",
+        },
+        "brand-contrast": {
+          "50": "#eeefff",
+          "100": "#e0e2ff",
+          "200": "#c7cafe",
+          "300": "#a5a7fc",
+          "400": "#8079f7",
+          "500": "#7664f0",
+          "600": "#6747e4",
+          "700": "#5939c9",
+          "800": "#4830a3",
+          "900": "#3d2e81",
+          "950": "#251b4b",
+        },
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -75,6 +102,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
