@@ -37,7 +37,7 @@ export const Navigation = () => {
           key={route.href}
           href={route.href}
           label={route.label}
-          isActive={false}
+          isActive={pathname === route.href}
         />
       ))}
     </nav>
