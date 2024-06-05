@@ -4,17 +4,20 @@ import { db } from "@/db/drizzle";
 import { accounts } from "@/db/schema";
 
 const app = new Hono().get("/", async (c) => {
-  console.log("running accounts query");
+  console.log("Endpoint hit");
 
-  const data = await db
-    .select({
-      id: accounts.id,
-      name: accounts.name,
-    })
-    .from(accounts);
-
-  console.log("ran accounts query");
-  return c.json({ hi: "hi" });
+  try {
+    const data = await db
+      .select({
+        id: accounts.id,
+        name: accounts.name,
+      })
+      .from(accounts);
+    return c.json({ data });
+  } catch (error) {
+    console.log("Error fetching data from DB", error);
+    return c.json({ error: "Internal Server Error" }, 500);
+  }
 });
 
 export default app;
