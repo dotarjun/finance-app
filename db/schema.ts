@@ -1,16 +1,34 @@
-import { drizzle } from "drizzle-orm/vercel-postgres";
-import { sql } from "@vercel/postgres";
-import { pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
+// import { pgTable, text } from "drizzle-orm/pg-core";
 
-// export const users = pgTable("users", {
-//   id: serial("id").primaryKey(),
-//   fullName: text("full_name"),
-//   phone: varchar("phone", { length: 256 }),
+// export const accounts = pgTable("accounts", {
+//   id: text("id").primaryKey(),
+//   plaidId: text("plaid_id"),
+//   name: text("name").notNull(),
+//   userId: text("user_id").notNull(),
 // });
 
-export const accounts = pgTable("accounts", {
-  id: text("id").primaryKey(),
-  plaidId: text("plaid_id"),
-  name: text("name").notNull(),
-  userId: text("user_id").notNull(),
-});
+import { drizzle } from "drizzle-orm/vercel-postgres";
+import { sql } from "@vercel/postgres";
+import {
+  pgTable,
+  serial,
+  text,
+  timestamp,
+  uniqueIndex,
+} from "drizzle-orm/pg-core";
+
+export const UsersTable = pgTable(
+  "users",
+  {
+    id: serial("id").primaryKey(),
+    name: text("name").notNull(),
+    email: text("email").notNull(),
+    image: text("image").notNull(),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+  },
+  (users) => {
+    return {
+      uniqueIdx: uniqueIndex("unique_idx").on(users.email),
+    };
+  }
+);

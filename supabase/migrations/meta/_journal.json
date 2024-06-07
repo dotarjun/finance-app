@@ -15,6 +15,13 @@
       "when": 1717485099246,
       "tag": "0001_early_supreme_intelligence",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1717783959923,
+      "tag": "0002_neat_genesis",
+      "breakpoints": true
     }
   ]
 }
