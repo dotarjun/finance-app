@@ -10,7 +10,7 @@ const app = new Hono().get("/", async (c) => {
       name: accounts.name,
     })
     .from(accounts);
-  return c.json(data);
+  return c.json({ data });
 });
 
 export default app;
