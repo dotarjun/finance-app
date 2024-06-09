@@ -3,7 +3,7 @@ import { handle } from "hono/vercel";
 
 import accounts from "./accounts";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 const app = new Hono().basePath("/api");
 
