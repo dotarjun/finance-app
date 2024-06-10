@@ -1,10 +1,5 @@
-import { pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
-
-// export const users = pgTable("users", {
-//   id: serial("id").primaryKey(),
-//   fullName: text("full_name"),
-//   phone: varchar("phone", { length: 256 }),
-// });
+import { pgTable, text } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
 
 export const accounts = pgTable("accounts", {
   id: text("id").primaryKey(),
@@ -12,3 +7,5 @@ export const accounts = pgTable("accounts", {
   name: text("name").notNull(),
   userId: text("user_id").notNull(),
 });
+
+export const insertAccountSchema = createInsertSchema(accounts);
