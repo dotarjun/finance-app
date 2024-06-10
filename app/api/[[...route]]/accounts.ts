@@ -5,34 +5,33 @@ import { HTTPException } from "hono/http-exception";
 import { db } from "@/db/drizzle";
 import { accounts } from "@/db/schema";
 
-const app = new Hono();
-
 const protectedPathsRegex: string = "*";
+const app = new Hono()
 
-app.use(
-  protectedPathsRegex,
-  clerkMiddleware({
-    publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!,
-    secretKey: process.env.CLERK_SECRET_KEY!,
-  })
-);
-
-app.get("/", async (c) => {
-  const auth = getAuth(c);
-
-  if (!auth?.userId) {
-    throw new HTTPException(401, {
-      res: c.json({ error: "unauthorized" }, 401),
-    });
-  }
-
-  const data = await db
-    .select({
-      id: accounts.id,
-      name: accounts.name,
+  .use(
+    protectedPathsRegex,
+    clerkMiddleware({
+      publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!,
+      secretKey: process.env.CLERK_SECRET_KEY!,
     })
-    .from(accounts);
-  return c.json({ data });
-});
+  )
+
+  .get("/", async (c) => {
+    const auth = getAuth(c);
+
+    if (!auth?.userId) {
+      throw new HTTPException(401, {
+        res: c.json({ error: "unauthorized" }, 401),
+      });
+    }
+
+    const data = await db
+      .select({
+        id: accounts.id,
+        name: accounts.name,
+      })
+      .from(accounts);
+    return c.json({ data });
+  });
 
 export default app;
