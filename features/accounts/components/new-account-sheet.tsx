@@ -11,9 +11,13 @@ import {
 import { insertAccountSchema } from "@/db/schema";
 
 import { AccountsForm } from "./account-form";
+import { useCreateAccount } from "@/features/accounts/api/use-create-account";
 
 export const NewAccountSheet = () => {
   const { isOpen, onClose } = useNewAccount();
+
+  const mutation = useCreateAccount();
+
   const formSchema = insertAccountSchema.pick({
     name: true,
   });
@@ -21,7 +25,7 @@ export const NewAccountSheet = () => {
   type FormValues = z.input<typeof formSchema>;
 
   const onSubmit = (values: FormValues) => {
-    console.log(values);
+    mutation.mutate(values);
   };
 
   return (
