@@ -36,12 +36,15 @@ type ExtendedDataTableProps<TData, TValue> = DataTableProps<TData, TValue> & {
 export function DataTable<TData, TValue>({
   columns,
   data,
+  filterBy,
 }: ExtendedDataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
+
+  const filteredBy = filterBy;
 
   const table = useReactTable({
     data,
@@ -61,7 +64,17 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center py-4">
-        <Input placeholder="Filter emails" />
+        <Input
+          placeholder={`Filter ${filteredBy}s`}
+          value={
+            (table.getColumn(filteredBy)?.getFilterValue() as string) ?? ""
+          }
+          onChange={(event) => {
+            console.log(filteredBy);
+            table.getColumn(filteredBy)?.setFilterValue(event.target.value);
+          }}
+          className="max-w-sm"
+        />
       </div>
       <div className="rounded-md border">
         <Table>
