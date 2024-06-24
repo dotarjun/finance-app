@@ -29,10 +29,14 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
+type ExtendedDataTableProps<TData, TValue> = DataTableProps<TData, TValue> & {
+  filterBy: string;
+};
+
 export function DataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+}: ExtendedDataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
